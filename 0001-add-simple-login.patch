@@ -1,0 +1,525 @@
+From bb2aba7106128dbd6418916974dc51d1cf8d5653 Mon Sep 17 00:00:00 2001
+From: ahmotameni <a.h.motameni@gmail.com>
+Date: Fri, 28 Aug 2020 15:17:20 +0430
+Subject: [PATCH] add simple login
+
+---
+ .../__pycache__/__init__.cpython-36.pyc       | Bin 0 -> 134 bytes
+ .../__pycache__/settings.cpython-36.pyc       | Bin 0 -> 2364 bytes
+ NoName/NoName/__pycache__/urls.cpython-36.pyc | Bin 0 -> 958 bytes
+ NoName/NoName/__pycache__/wsgi.cpython-36.pyc | Bin 0 -> 535 bytes
+ NoName/NoName/settings.py                     |   3 +-
+ NoName/NoName/urls.py                         |   2 +-
+ .../__pycache__/__init__.cpython-36.pyc       | Bin 0 -> 137 bytes
+ .../__pycache__/admin.cpython-36.pyc          | Bin 0 -> 352 bytes
+ .../NoNameApp/__pycache__/apps.cpython-36.pyc | Bin 0 -> 359 bytes
+ .../__pycache__/models.cpython-36.pyc         | Bin 0 -> 3806 bytes
+ .../NoNameApp/__pycache__/urls.cpython-36.pyc | Bin 0 -> 336 bytes
+ .../__pycache__/views.cpython-36.pyc          | Bin 0 -> 368 bytes
+ .../__pycache__/0001_initial.cpython-36.pyc   | Bin 0 -> 2386 bytes
+ .../__pycache__/__init__.cpython-36.pyc       | Bin 0 -> 148 bytes
+ NoName/NoNameApp/urls.py                      |   7 ++--
+ NoName/NoNameApp/views.py                     |   9 ++++-
+ NoName/templates/base_generic.html            |  15 +++++++
+ NoName/templates/registration/logged_out.html |   6 +++
+ NoName/templates/registration/login.html      |  37 ++++++++++++++++++
+ .../registration/password_reset_done.html     |   5 +++
+ .../registration/password_reset_email.html    |   2 +
+ .../registration/password_reset_form.html     |  12 ++++++
+ .../registration/password_rest_complete.html  |   6 +++
+ .../registration/passwrod_reset_confirm.html  |  29 ++++++++++++++
+ 24 files changed, 126 insertions(+), 7 deletions(-)
+ create mode 100644 NoName/NoName/__pycache__/__init__.cpython-36.pyc
+ create mode 100644 NoName/NoName/__pycache__/settings.cpython-36.pyc
+ create mode 100644 NoName/NoName/__pycache__/urls.cpython-36.pyc
+ create mode 100644 NoName/NoName/__pycache__/wsgi.cpython-36.pyc
+ create mode 100644 NoName/NoNameApp/__pycache__/__init__.cpython-36.pyc
+ create mode 100644 NoName/NoNameApp/__pycache__/admin.cpython-36.pyc
+ create mode 100644 NoName/NoNameApp/__pycache__/apps.cpython-36.pyc
+ create mode 100644 NoName/NoNameApp/__pycache__/models.cpython-36.pyc
+ create mode 100644 NoName/NoNameApp/__pycache__/urls.cpython-36.pyc
+ create mode 100644 NoName/NoNameApp/__pycache__/views.cpython-36.pyc
+ create mode 100644 NoName/NoNameApp/migrations/__pycache__/0001_initial.cpython-36.pyc
+ create mode 100644 NoName/NoNameApp/migrations/__pycache__/__init__.cpython-36.pyc
+ create mode 100644 NoName/templates/base_generic.html
+ create mode 100644 NoName/templates/registration/logged_out.html
+ create mode 100644 NoName/templates/registration/login.html
+ create mode 100644 NoName/templates/registration/password_reset_done.html
+ create mode 100644 NoName/templates/registration/password_reset_email.html
+ create mode 100644 NoName/templates/registration/password_reset_form.html
+ create mode 100644 NoName/templates/registration/password_rest_complete.html
+ create mode 100644 NoName/templates/registration/passwrod_reset_confirm.html
+
+diff --git a/NoName/NoName/__pycache__/__init__.cpython-36.pyc b/NoName/NoName/__pycache__/__init__.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..90f2f96a5e25fabcac9bf3ae184a30c3797cfa77
+GIT binary patch
+literal 134
+zcmXr!<>ks<>=DlZ1dl-k3@`#24nSPY0whuxf*CX!{Z=v*frJsnFJt|T{M=Oi#GFk1
+u-29Tn+|;~GeZPD^AOnqxkI&4@EQycTE2zB1VUwGmQks)$2QsV}h#3H;0v_Q2
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoName/__pycache__/settings.cpython-36.pyc b/NoName/NoName/__pycache__/settings.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..ed3db5479483a057b5a6f87969bb994968f0af1e
+GIT binary patch
+literal 2364
+zcmb7F-FDMP5VmZ^cAPl;1;SscQYc_35+M{qPoXHbNPMv6oJdYuU7#a-*YYO%G1^r_
+zbju6$zPv!+rq?>X>s4Q&SBzvk_Hj6;sb#HJvoqh!&U~|4FPBTd{kd)azL?4UotgR-
+zVg4F!`WFl+V`LDAvJPi(m^;WG<fcX*&wb>Q%gCdgQ9!&=v@^y$nnQV1Kt(i<N@&3@
+z7$vlb%4i9lL+8;2bP*&A=#sIBmQ$=U&ZEm8vo?o#bOo)TtLPfKZu5jgH$L$;XDp$c
+z#yRvAx^<%c^~Wp{K4l4KoJXtZ8_--ux6|=XI(|zyn>Q|?yT(Oy&$t9}EyH~o?kniN
+zv4SebRg~2-l?T>CE|V$M4lK|11&SFXo=t_G9|)?iS}qm_fq#IzOe~eQu!jSSVI*{p
+zg?lJ9d1N7%cmicsz($()gpdM=Fv46HAB*3E^&5b6{QwKZ19aD7#P<aFvpxZT#KGTz
+zdtB->HlRO967suL9QqhX(DhvjdlCRj%pZ_0mB#T(LwMH5LN9b2!6B3hes8iL%R}G@
+zlR)^@azaf1kFNmtrX2kPjL4|b6ZhFW^n&%*j-DKEyo{Wl|L*mjja56k`;vUPy|LD1
+zhYxV4`{J-udAb(5x1->>9^D$IR2~dOYcQaq>U)r3m{xtSN9<^MxL>jBdn_OwG0kms
+zX;vDtesp6-n3!OXvEu=z(aOvs#gsy}PcOKzVA)`Ceb$0OeY#0iX!K~b<`RS)d}IY!
+zq_`UfgdL08Xwp1ci=NIxjhu^9_S#T3WmP%t1j_CDo>)yE|Dj5Qo>+xpkKm&z)#o#@
+zSdhBuIAnN-tdVZY#wo+uO^g#YZQL9tZ_4V~7dGLL?%{#eJ%o-Be|{4{y<3BX`gF=}
+zVaN+H3>+FsBM^q&fdkzpcEB2YXxt5AEp0q~v`pjqu_iSxrZo7#OlX-dgy#n|x<89|
+zT1P~<6WY;(GiV0*J+u#t9*%TRsG4N<3&=^vqxBi(lWcy$V7yl0<HDv~eXFQ7gRj+h
+zwYVtn?3n4S(Av@KEmezFMu|J3Hc46vlATsEE+E{qLWi9Y8+9gmr0*TV@Oo4N;b>mT
+z#(72Es;f%Ot8!Bbk}p8CJrj3IpMgc`kslxvP7;DrcVe63KxRqLh74=OC61M}$KFuG
+z529CRMQRd{xS`v?p3V9b`=8EgKkSyBQH&FS*JlM#Ll+06dm3R5dyhhD<l1^QDoSwR
+zL)%Ev=!k~W!?EC6#F?ZSic5V5i%KHi9Fn+lEiRZQob9F=XMGy;1B>;cS|mtL!nj~{
+zXeue1W^(wLrcvCKH6<x~T+)>4uA-Z7m0#kynzGs6ipz4N(b`vP=5|ZdwRownYC4EO
+z09?`HQnOyGHI#jMSBV#QTP@ve?>4F}^-atl_{59nb)~t}kab0i&+ltn^~9=CugVFz
+z;`y4a%ZYO>zACr%ZF5J~wEfm@&D@h4by#cxC(8|4-D=BQidk*d6acI@71L+|jf!mu
+zyS}!e4rh(E$7-BUWV!)6(ZNSGi6$;9O}XAMM^yhK6RZOB(&68Asqed30uo8C&mcb@
+zk%okyd5k}U;@~(g{^<HBbnvSMz@d9E@Y!PSW`WP~Sw5fTCRd)H%(GlR$HV&)m(7l)
+VOL@MK%$G~~Tym9)fH1tk^fO;o9nk;)
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoName/__pycache__/urls.cpython-36.pyc b/NoName/NoName/__pycache__/urls.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..a0e02eb14f1c512c8fc2dd80d990063c82880fee
+GIT binary patch
+literal 958
+zcma)5OK#gR5T#@}cI71P2@39P0j}6KJ0mR`1Pv0j@S>lMHVQ4$HVu&!NV;vZ^=W#U
+z9zff!dWEh!lx08&P#^+C4F<zE@4XqFot(rUeqHC!dkFnTou?1+J9w=>7|IX}SXc%!
+z%)-FOy|O2xERy}KA0QsFh=-e_&0rTo+~<9Ev<r6OD$Is#@EIjTszZe4dQK(BUq5}s
+zms%~wYHO$yTE+2~HOIGGQ&!YDZj`;nrLYbgy>;CB3l=+#zX|@`rua%5EVbcSsHHZt
+zfxuPCspZ&mK8rCtYv(FEBZTR~rffsiN>@g2c;V7QOTra7OJ5SFD^XbDiwU&1B!2&c
+zO2D$S_-d;P&u-tg0ezL?3&t>2Sjb8nH^X>ow8Zi*r&ZM^JN2*I`bIJc=qQA%Aa*?&
+zkEgA!wU&H}6*%-}?Bj6~UzXI`7Yh)^I;j6+q1~DrPb6)OI?%ZWtcLv~+4%aD+T4Ro
+zk_U`#R8el3P%AK@>F1>tFwBELH;pkEsK9u9EuSQK*;+Z<+qEA@>J2}TY-^{DDUW8m
+zDD{effrn0GpJ;H$NfQ5o%|%I2_bHP?C1D+T$Lm2`eSg&CNsaDL_nUbE)_GF%<Viiq
+zb6A}`&rVymAkrDJFtEp{9(5!b_;rwpd^)ni@jCJt^{6xKpU8}Skw5+t;-^b!DTve#
+k#;pX|_kZy5FllvH56`7$+mgS13fJurjwm<|p7oA{e-=<E+5i9m
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoName/__pycache__/wsgi.cpython-36.pyc b/NoName/NoName/__pycache__/wsgi.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..ab1c530a078df7f19250c6fc3808ee8abd586f1e
+GIT binary patch
+literal 535
+zcmZ8dO>Yx15cPV~CR!-;P;vG(609rrh7ba&B@Ke@Aw@{JIA%TBIP%A8?WVNXieJKs
+zKg7XTPW%N<OtM0Xu;e$kXXd@<IXgNk?DtFYEhFR?*;_fD-{20X2#U;!$`m!(Jj0k9
+zYV&!X5y;kq^?@3wg9nPY{DI656`hgs;r-9z^K3F@wRcP1u%+)<<tu4{wVhu>9m}Ga
+zMh0J7A0V)}0@l|{W8@bDOa>;I_3FmJ3j-T4Y$H3pOF5)bY_X7SYjiE6_HMC2zIP~M
+zeFscC)U&$;^A5>%U`uV_IST;AD#kXv<XrhWlxi(q<NtZ8z2)HeS$WD={x*89pf&!^
+zf{Xk%G@2K`aT=r=XX&JYD7J56&qjK7{{C$>xe~LB>+5MXnTd~A=bt`Y+&}F<Uj~R#
+zyC#f>X($9b5F$|@(sA#jtkHhCW$h^Hq#?MC?z~F{HY!-k8xzx`J;5KOE3j|}e>j@9
+nz@^dL`iMhvn)kZ@g{?r@-lfs2e!#Cs$Pu<Mpd<R2KB0dB0qCZ+
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoName/settings.py b/NoName/NoName/settings.py
+index b13ba18..7e218c9 100644
+--- a/NoName/NoName/settings.py
++++ b/NoName/NoName/settings.py
+@@ -55,7 +55,7 @@ ROOT_URLCONF = 'NoName.urls'
+ TEMPLATES = [
+     {
+         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+-        'DIRS': [],
++        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+         'APP_DIRS': True,
+         'OPTIONS': {
+             'context_processors': [
+@@ -120,3 +120,4 @@ USE_TZ = True
+ 
+ STATIC_URL = '/static/'
+ 
++EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+diff --git a/NoName/NoName/urls.py b/NoName/NoName/urls.py
+index 586829d..04ae840 100644
+--- a/NoName/NoName/urls.py
++++ b/NoName/NoName/urls.py
+@@ -18,5 +18,5 @@ from django.urls import path, include
+ 
+ urlpatterns = [
+     path('admin/', admin.site.urls),
+-    path('NoNameApp/', include('NoNameApp.urls')),
++    path('', include('NoNameApp.urls')),
+ ]
+diff --git a/NoName/NoNameApp/__pycache__/__init__.cpython-36.pyc b/NoName/NoNameApp/__pycache__/__init__.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..435d69e22836b6347707947afe22a9ff9f83f586
+GIT binary patch
+literal 137
+zcmXr!<>ks<>=DlZ1dl-k3@`#24nSPY0whuxf*CX!{Z=v*frJsnFEjm&{M=Oi#GFk1
+y-29Tn+|;~GeZPD^AOn?hEGW>AkI&4@EQycTE2zB1VUwGmQks)$2Qsf1h#3G5Kp+JG
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoNameApp/__pycache__/admin.cpython-36.pyc b/NoName/NoNameApp/__pycache__/admin.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..4969fa1b864eb20c9c2cbb572175559b1cf96598
+GIT binary patch
+literal 352
+zcmY+8u};G<5QgtkCxp=UJ;G2AT@eByA*Kik%FqQuZMBZ<II@EfGmpZ=D_LS<>MJmD
+zZUF_K?!V9faQDwAlft}R-G2bUC-vV;h|Z|}1Bn2E8VoKGK_p_NlUtD3j2b4>SMq*1
+z8}Pw^^8p_YxQHy+4V3AYu0V+)t%XtT7WY3quF9k3R5W$FwzHLOd#4^<j21Fuh15PU
+zuX-7BC)djN(gn8gQSU6d#kJM?Vq?`x1{OJFm!$SNWPA4=+?1B><ZI41)<|A!#f|N2
+lBU{BQTM_&p=UvBlDQDeF$WJK8la{A3v5(8fm?vZWt#6U%T8#hz
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoNameApp/__pycache__/apps.cpython-36.pyc b/NoName/NoNameApp/__pycache__/apps.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..95e31e94be723480feb1dc3d5ab75781ecaae97e
+GIT binary patch
+literal 359
+zcmY*UJx{|h5Ix61N=hsE39MOa308!P7+~_kW(ipqm$pH191=P(!#`o-FJ)!oFEH_(
+zP!K2GyXSlN<+H_N=HG7Y9T9!Ne=P-D!TS>c6N{R>FhbBZal-PISeD{NnuOC^Dh@tT
+zMTHph%eK7=&AQs$$IRXY$O_&c14=T237x`7PS7ofBOMy&OSf+}xegi$Ow&a=WY$L6
+z+F@p`54@`*pIiI5bM=ps#`sQMh7BWpovLl{rE+zpe0YM|RB9UgKVXT%=6=~ecM{$4
+p>wN;q#Q4@Y@Q@!|vkA*s*F|kq{+3NFhcIO4(}frD)8m}E{070XQ;z@u
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoNameApp/__pycache__/models.cpython-36.pyc b/NoName/NoNameApp/__pycache__/models.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..955add33b66c8d75a8c654593028f03ceddaba49
+GIT binary patch
+literal 3806
+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
+Qi~R1@ZmZkq*1DZ<0U3wiQvd(}
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoNameApp/__pycache__/urls.cpython-36.pyc b/NoName/NoNameApp/__pycache__/urls.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..a5bd3047749b68f2d5e617c83e5bb676a2003684
+GIT binary patch
+literal 336
+zcmY+9zfQw25XNoCY1*ch7<q*(u>>osU}MU{mIayEYEt=6WIIJ<?F{e11Mo5)SeW_>
+zOq?Zz#7Xzvr#s)zy6f$B{q}kP_<<1mg8YjGxLZiS0})7Ig*0xlCN0585Rs`&)0Sc+
+zv7nNO{De;g{6f-0E()=H&Gw{Sh}8qC)@NX#ibOi{(8pphotlI^<J845KMwNQ&nw<_
+zb~3@U`BEIX+1t9aCb;3L=2PhF$tgeQM;j!IG!<B-hHKeWMJ#_e(j!NJ>oSmtT%LS7
+zCYCUR|ATbKzav+sL6Yw))>|zZR|C^F0MHDqu??92<!&5V;@9I#T;6CaCM9?22A}vB
+IWRq?14^*XEIsgCw
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoNameApp/__pycache__/views.cpython-36.pyc b/NoName/NoNameApp/__pycache__/views.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..8fe05ebc4e2eb5117d0b0f4964c59676a1f41b55
+GIT binary patch
+literal 368
+zcmY*UyH3ME5Zv`6iNN6#sBvQ#X%Pa^q;dfgg`3FuR`DU9&)l7ZsKYn#2Ne903mPhZ
+zfhv0zLa@@zu1<3^yQ}5$==Ed0c>{n?#&3l@T{7$$lK_D&C@c~E9JGN7%MgK3gd%!@
+zJ(iJ(Zy}w1u^LhwPg=c|-Nw-4APotAN!HHwH)MO=S*p?NxO@*7*9^O0avZfswhD?d
+zy3>wQG=3L$n0q&}?j6jGU%pp)qZQ><D|4k?rKpp6p$i`Vx2wL-caolL)<2KYjy+?a
+z=3^l+KD0>V@>D!j-BxF{?wpbLSv9yO6I5$cIc==*^6~gb)bK6STGRJwoj)}9(#5&b
+PVrc2YpJ*ed1e5Rp<k43E
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoNameApp/migrations/__pycache__/0001_initial.cpython-36.pyc b/NoName/NoNameApp/migrations/__pycache__/0001_initial.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..5174979b1b3f9a9c04b55ac12f24027f3bbd7b2a
+GIT binary patch
+literal 2386
+zcmZuzTXPge6rP@$-JQMULI^Pg)ELpK70BiSq81_{7eGvmBmrH^nwsSF&dxHIrDqlh
+zulO3P{0%<&m-^Kg_b)^R&*`2`LW-U0p0B??eQtfaXBUTtD$yVJ+}}qG<1gdH&qjP3
+zTRMv!7{Ed!VoesAO_R~s46UYp*8mIbUk$K1>l9vD%>tNPM!nF-HAdZ(l_>Cqmjy|j
+z%3_oN57Ui3nj8Ek5ZuO={$?5mH<}ELrU|TR`9{;`g-#Jnuz0ECfDH@^P&}|&rq7^s
+zV5(UM%4)W9JPTE1%C8KRGmqqIFoY~gk(OZ?Ij~zMj3QShNjP(a#t_vMcNWnQAMT8F
+zN}bWp85oCi2PVo+oZ{cpykCS#c+_SAgYyTL@@@()psWKIl~o4sE2|$U?n9V9V5sdQ
+zHJU-0kCpaIr^cVC@niTAe)2820#}vPY%bM6&2y9!m`7#|W?<onSwyCc%r#}_I*n9T
+z%6V4K!UTMd?8z8!P%Q98?*EtX%-UDDrV2m9FW`a)djP<p1wOPP@T>4ZS^I8a4b~Ak
+zu#rdm{V98!c}{;g#VbE>2PvnWw{rUMojx7g+d8Fb3vR%+%FxcKnVrFmZ=;nb11o;1
+zISw;e#i1;(56X927MI&eu*YR}PrcoYzsULvSh{O<3+vo_;f6f+v$m{uMG$#n-+jXO
+zWjW;{@WS9F$J1cPUc_aw74Q&JX>TTBh|<`*-L~*j-Un1CYv5(v-4h&NAS)!5n>GWG
+z=KYnrEo)vcO9nEcjLSqtt$oJDZjy3WSt`f9$bFV%JVif_q4&&pyGamdvZ!NuIl7T-
+zpleIr?yNS2&X$wd#q-KDF3l{FHu?E-_*hVRKhleXr#<dwiO;h(7j;Wi$(b5CQ%bt}
+z<l8%#1?lv#C%^jRI9s=cLz2h77qu?wbiFivo(SkuNOh*<WTh2|G*fYHpm!zUEw2}5
+zda@jP`JA*;{z9^KX|H=BmuyWI*LbAh=HZ!5!CPER$4NGwCDW<5-)Ce3)#*f}T3xN%
+zPGZbqFWTjzPqAQJpOUxA<rze>fLepF|C+F~8;Gn8-aa}@VzS)9^y1;b+?CWuCgNo3
+zC>^S3=t5K>sjSI@stjpA!Yz{pwMB>K)$9EN>O^p@Pj@nc#lEG%LLYBUV&)~A6BNs#
+zd3he&0=7kL*RWkjujX({+POnX6!AC<{zfHv`Q>FW{`T(bQji6zAc1+r0!W@qr={K;
+zFeg)_wkCK;rK$tDK-54+)J<^_32`1f#C5`-X?&UR6^*YFrteJupEqybpx{j+wutyw
+z6Ss)iCgML$+$Lg&h}W99L&PH@a7;Q@h<J=0;#I<Wuf-bShUV`QUe@>?;U$gl6aGfy
+zZwY^`@jBrRjUN);Bz#Ufu8Q7uWyN*zJJ$<2;+pF|?Rg>9JdR319AtPG-~s1d9s`f}
+z0-g%mL0Mf^$9<g&LeS>Q@^ae~Yjjh{p%qN;b`WtrEHB~N*RXa!&bZHWxyo9Yc$uE5
+ztR;d6e*6IMpdxg<*iWPhyV6ld8o$S~w7j&nytJ|^E2~t=dYQ8XkSj>KJpXe4X^1Bj
+zD|Lsfjdl|823~26D9JFgIB4jydHaQTN#pqA-<X@5n|JdB%y#z$RdNYix{IA-+NN#W
+z%rqx0>c`lqdXKY;dM4SFRm+)SHj2*#8^Z@NvG`1yv~HYTLiu5KQoh2b*hNd(s~2Ti
+vr(za%Ro-=~&mWPq`Y+1tAW4EQWVQA<0~&=mA)T9gt8dYcr4-UAbFBXXSBRa=
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoNameApp/migrations/__pycache__/__init__.cpython-36.pyc b/NoName/NoNameApp/migrations/__pycache__/__init__.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..953392f54191a5c2e485301dc5834aebbf384153
+GIT binary patch
+literal 148
+zcmXr!<>ks<>=DlZ1dl-k3@`#24nSPY0whuxf*CX!{Z=v*frJsnFGu~1{M=Oi#GFk1
+z-29Tn+|;~GeZPD^AOn?hEGW>=%}g&!EXmBzE7p&X&&<m#iI3MSsJz8tlbfGXnv-e=
+JGP)Ru8341DBzyn>
+
+literal 0
+HcmV?d00001
+
+diff --git a/NoName/NoNameApp/urls.py b/NoName/NoNameApp/urls.py
+index 6a780f3..0552c00 100644
+--- a/NoName/NoNameApp/urls.py
++++ b/NoName/NoNameApp/urls.py
+@@ -1,7 +1,8 @@
+-from django.urls import path
++from django.urls import path, include
+ 
+ from . import views
+ 
+ urlpatterns = [
+-    # path('', views.index, name='index'),
+-]
+\ No newline at end of file
++    path('accounts/', include('django.contrib.auth.urls')),
++    path('vote/', views.vote, name='vote')
++]
+diff --git a/NoName/NoNameApp/views.py b/NoName/NoNameApp/views.py
+index 91ea44a..c9606c6 100644
+--- a/NoName/NoNameApp/views.py
++++ b/NoName/NoNameApp/views.py
+@@ -1,3 +1,8 @@
+-from django.shortcuts import render
++from django.contrib.auth.decorators import login_required
++from django.http import HttpResponse
++
++
++@login_required
++def vote(request):
++    return HttpResponse('Vote')
+ 
+-# Create your views here.
+diff --git a/NoName/templates/base_generic.html b/NoName/templates/base_generic.html
+new file mode 100644
+index 0000000..de1f608
+--- /dev/null
++++ b/NoName/templates/base_generic.html
+@@ -0,0 +1,15 @@
++{% block content %}
++
++{% endblock %}
++
++ <ul class="sidebar-nav">
++
++    ...
++
++   {% if user.is_authenticated %}
++     <li>User: {{ user.get_username }}</li>
++     <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
++   {% else %}
++     <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
++   {% endif %}
++  </ul>
+\ No newline at end of file
+diff --git a/NoName/templates/registration/logged_out.html b/NoName/templates/registration/logged_out.html
+new file mode 100644
+index 0000000..0f1de9b
+--- /dev/null
++++ b/NoName/templates/registration/logged_out.html
+@@ -0,0 +1,6 @@
++{% extends "base_generic.html" %}
++
++{% block content %}
++  <p>Logged out!</p>
++  <a href="{% url 'login'%}">Click here to login again.</a>
++{% endblock %}
+\ No newline at end of file
+diff --git a/NoName/templates/registration/login.html b/NoName/templates/registration/login.html
+new file mode 100644
+index 0000000..4c0c556
+--- /dev/null
++++ b/NoName/templates/registration/login.html
+@@ -0,0 +1,37 @@
++{% extends "base_generic.html" %}
++
++{% block content %}
++
++  {% if form.errors %}
++    <p>Your username and password didn't match. Please try again.</p>
++  {% endif %}
++
++  {% if next %}
++    {% if user.is_authenticated %}
++      <p>Your account doesn't have access to this page. To proceed,
++      please login with an account that has access.</p>
++    {% else %}
++      <p>Please login to see this page.</p>
++    {% endif %}
++  {% endif %}
++
++  <form method="post" action="{% url 'login' %}">
++    {% csrf_token %}
++    <table>
++      <tr>
++        <td>{{ form.username.label_tag }}</td>
++        <td>{{ form.username }}</td>
++      </tr>
++      <tr>
++        <td>{{ form.password.label_tag }}</td>
++        <td>{{ form.password }}</td>
++      </tr>
++    </table>
++    <input type="submit" value="login" />
++    <input type="hidden" name="next" value="{{ next }}" />
++  </form>
++
++  {# Assumes you setup the password_reset view in your URLconf #}
++  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
++
++{% endblock %}
+\ No newline at end of file
+diff --git a/NoName/templates/registration/password_reset_done.html b/NoName/templates/registration/password_reset_done.html
+new file mode 100644
+index 0000000..373b3fb
+--- /dev/null
++++ b/NoName/templates/registration/password_reset_done.html
+@@ -0,0 +1,5 @@
++{% extends "base_generic.html" %}
++
++{% block content %}
++  <p>We've emailed you instructions for setting your password. If they haven't arrived in a few minutes, check your spam folder.</p>
++{% endblock %}
+\ No newline at end of file
+diff --git a/NoName/templates/registration/password_reset_email.html b/NoName/templates/registration/password_reset_email.html
+new file mode 100644
+index 0000000..61fba5c
+--- /dev/null
++++ b/NoName/templates/registration/password_reset_email.html
+@@ -0,0 +1,2 @@
++Someone asked for password reset for email {{ email }}. Follow the link below:
++{{ protocol}}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+\ No newline at end of file
+diff --git a/NoName/templates/registration/password_reset_form.html b/NoName/templates/registration/password_reset_form.html
+new file mode 100644
+index 0000000..0f811c9
+--- /dev/null
++++ b/NoName/templates/registration/password_reset_form.html
+@@ -0,0 +1,12 @@
++{% extends "base_generic.html" %}
++
++{% block content %}
++  <form action="" method="post">
++  {% csrf_token %}
++  {% if form.email.errors %}
++    {{ form.email.errors }}
++  {% endif %}
++      <p>{{ form.email }}</p> 
++    <input type="submit" class="btn btn-default btn-lg" value="Reset password">
++  </form>
++{% endblock %}
+\ No newline at end of file
+diff --git a/NoName/templates/registration/password_rest_complete.html b/NoName/templates/registration/password_rest_complete.html
+new file mode 100644
+index 0000000..a498b4b
+--- /dev/null
++++ b/NoName/templates/registration/password_rest_complete.html
+@@ -0,0 +1,6 @@
++{% extends "base_generic.html" %}
++
++{% block content %}
++  <h1>The password has been changed!</h1>
++  <p><a href="{% url 'login' %}">log in again?</a></p>
++{% endblock %}
+\ No newline at end of file
+diff --git a/NoName/templates/registration/passwrod_reset_confirm.html b/NoName/templates/registration/passwrod_reset_confirm.html
+new file mode 100644
+index 0000000..b00c368
+--- /dev/null
++++ b/NoName/templates/registration/passwrod_reset_confirm.html
+@@ -0,0 +1,29 @@
++{% extends "base_generic.html" %}
++
++{% block content %}
++    {% if validlink %}
++        <p>Please enter (and confirm) your new password.</p>
++        <form action="" method="post">
++        {% csrf_token %}
++            <table>
++                <tr>
++                    <td>{{ form.new_password1.errors }}
++                        <label for="id_new_password1">New password:</label></td>
++                    <td>{{ form.new_password1 }}</td>
++                </tr>
++                <tr>
++                    <td>{{ form.new_password2.errors }}
++                        <label for="id_new_password2">Confirm password:</label></td>
++                    <td>{{ form.new_password2 }}</td>
++                </tr>
++                <tr>
++                    <td></td>
++                    <td><input type="submit" value="Change my password" /></td>
++                </tr>
++            </table>
++        </form>
++    {% else %}
++        <h1>Password reset failed</h1>
++        <p>The password reset link was invalid, possibly because it has already been used. Please request a new password reset.</p>
++    {% endif %}
++{% endblock %}
+\ No newline at end of file
+-- 
+2.17.1
+

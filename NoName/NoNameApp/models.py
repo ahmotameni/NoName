@@ -1,14 +1,25 @@
 import datetime
 
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
-class User(models.Model):
-    username = models.CharField(max_length=20, unique=True, primary_key=True)
-    password = models.CharField(max_length=10)
+class Profile(models.Model):
+    class Meta:
+        verbose_name = 'Profile'
+        verbose_name_plural = 'Profiles'
 
-    first_name = models.CharField(max_length=20, default=None)
-    last_name = models.CharField(max_length=20, default=None)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='User')
+
+    # username = models.CharField(max_length=20, unique=True, primary_key=True)
+    # password = models.CharField(max_length=10)
+    #
+    # first_name = models.CharField(max_length=20, default=None)
+    # last_name = models.CharField(max_length=20, default=None)
+    # email = models.EmailField(default=None, unique=True)
+    # join_date = models.DateTimeField()
 
     SEX_CHOICES = (
         ('M', 'Male'),
@@ -17,20 +28,23 @@ class User(models.Model):
     )
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
 
-    phone_number = models.CharField(max_length=12, default=None, unique=True)
-    email = models.EmailField(default=None, unique=True)
+    phone_number = models.CharField(max_length=12, unique=True)
 
-    birthday = models.DateTimeField(default=None)
+    birth_date = models.DateField()
 
-    join_date = models.DateTimeField()
+    # def __str__(self):
+    #     return self.username
 
-    def __str__(self):
-        return self.username
+    @receiver(post_save, sender=User)
+    def update_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+        instance.profile.save()
 
 
 class Follow(models.Model):
-    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
-    followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followed")
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="follower")
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="followed")
 
     class Meta:
         unique_together = ('follower', 'followed')
@@ -43,7 +57,7 @@ class Follow(models.Model):
 
 class Poll(models.Model):
     poll_phrase = models.CharField(max_length=100, primary_key=True)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     date_created = models.DateTimeField()
 
@@ -75,7 +89,7 @@ class PollChoice(models.Model):
 
 class Vote(models.Model):
     poll_choice = models.ForeignKey(PollChoice, on_delete=models.CASCADE)
-    voter = models.ForeignKey(User, on_delete=models.CASCADE)
+    voter = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.voter.__str__() + " voted on " + self.poll_choice.__str__()

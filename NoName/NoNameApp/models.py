@@ -26,14 +26,14 @@ class Profile(models.Model):
         ('F', 'Female'),
         ('P', 'Prefer not to say'),
     )
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES)
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, null=True)
 
-    phone_number = models.CharField(max_length=12, unique=True)
+    phone_number = models.CharField(max_length=12, unique=True, null=True)
 
-    birth_date = models.DateField()
+    birth_date = models.DateField(null=True)
 
-    # def __str__(self):
-    #     return self.username
+    def __str__(self):
+        return self.user.username
 
     @receiver(post_save, sender=User)
     def update_user_profile(sender, instance, created, **kwargs):
